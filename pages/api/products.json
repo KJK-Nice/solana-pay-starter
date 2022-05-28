@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "name": "Nyan Cat Kawaii",
+        "price": "0.09",
+        "description": "Get this kawaii cat for only $0.09!",
+        "image_url": "https://cloudflare-ipfs.com/ipfs/QmTqdqAFYph6h5fMSxovsRojdnE1g9Ct9fGXRgmtwwdNax",
+        "filename": "nyan-cat-kawaii.gif",
+        "hash": "QmTqdqAFYph6h5fMSxovsRojdnE1g9Ct9fGXRgmtwwdNax"
+    }
+]
