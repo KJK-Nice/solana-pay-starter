@@ -4,22 +4,19 @@ import {
     Connection,
     PublicKey,
     Transaction,
-    SystemProgram,
-    LAMPORTS_PER_SOL,
 } from "@solana/web3.js";
-import { createTransferCheckedInstruction, getAssociatedTokenAddress, getMint } from "@solana/sql-token";
+import { createTransferCheckedInstruction, getAssociatedTokenAddress, getMint } from "@solana/spl-token";
 import BigNumber from "bignumber.js";
 import products from "./products.json";
 
 
 const usdcAddress = new PublicKey("Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr");
-const sellerAddress = '9jCXaa8NsKAMwtJW1e7ayjeewKVWYgUZbHEf58BNFJE1';
+const sellerAddress = 'HRWTZWM2p6zFELrto1BPP6oGwF25D88tYN1iW4gqtrkp';
 const sellerPublicKey = new PublicKey(sellerAddress);
 
 const createTransaction = async (req, res) => {
     try {
         const { buyer, orderID, itemID } = req.body;
-
         if (!buyer) {
             res.status(400).json({
                 message: "Missing buyer address",
@@ -42,11 +39,16 @@ const createTransaction = async (req, res) => {
         // Convert our price to the correct format
         const bigAmount = BigNumber(itemPrice);
         const buyerPublicKey = new PublicKey(buyer);
+
         const network = WalletAdapterNetwork.Devnet;
         const endpoint = clusterApiUrl(network);
         const connection = new Connection(endpoint);
 
+        const buyerUsdcAddress = await getAssociatedTokenAddress(usdcAddress, buyerPublicKey);
+        const shopUsdcAddress = await getAssociatedTokenAddress(usdcAddress, sellerPublicKey);
         const { blockhash } = await connection.getLatestBlockhash("finalized");
+
+        const usdcMint = await getMint(connection, usdcAddress);
 
         // The first two things we need - a recent block ID
         // and the public key of the fee payer
@@ -55,12 +57,14 @@ const createTransaction = async (req, res) => {
             feePayer: buyerPublicKey,
         });
 
-        const transferInstruction = SystemProgram.transfer({
-            fromPubkey: buyerPublicKey,
-            // Lamports are the smallest unit of SOL, like Gwei with Ethereum
-            lamports: bigAmount.multipliedBy(LAMPORTS_PER_SOL).toNumber(),
-            toPubkey: sellerPublicKey,
-        });
+        const transferInstruction = createTransferCheckedInstruction(
+            buyerUsdcAddress,
+            usdcAddress, // This is the address of the token we want to transfer
+            shopUsdcAddress,
+            buyerPublicKey,
+            bigAmount.toNumber() * 10 ** usdcMint.decimals,
+            usdcMint.decimals // The token could have any number of decimals
+        )
 
         // We're adding more instructions to the transaction
         transferInstruction.keys.push({
@@ -84,7 +88,7 @@ const createTransaction = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        res.status(500).json({ error: "error creating tx"});
+        res.status(500).json({ error: "error creating transaction"});
         return;
     }
 }
