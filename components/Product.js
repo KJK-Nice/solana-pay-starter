@@ -3,7 +3,7 @@ import styles from "../styles/Product.module.css";
 import Buy from "./Buy";
 
 export default function Product({ product }) {
-    const { id, name, price, description, image_url } = product;
+    const { id, name, price, description, image_url, seller_address } = product;
 
     return (
         <div className={styles.product_container}>
@@ -15,6 +15,7 @@ export default function Product({ product }) {
                 <div className={styles.product_text}>
                     <div className={styles.product_title}>{name}</div>
                     <div className={styles.product_description}>{description}</div>
+                    
                 </div>
             </div>
 
@@ -22,6 +23,7 @@ export default function Product({ product }) {
                 <div className={styles.product_price}>{price} USDC</div>
                 <Buy itemID={id} />
             </div>
+            <div className={styles.product_seller}>{`Seller: ${seller_address}`}</div>
         </div>
     )
 }

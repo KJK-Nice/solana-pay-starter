@@ -10,9 +10,7 @@ import BigNumber from "bignumber.js";
 import products from "./products.json";
 
 
-const usdcAddress = new PublicKey("Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr");
-const sellerAddress = 'HRWTZWM2p6zFELrto1BPP6oGwF25D88tYN1iW4gqtrkp';
-const sellerPublicKey = new PublicKey(sellerAddress);
+const usdcAddress = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
 
 const createTransaction = async (req, res) => {
     try {
@@ -29,7 +27,14 @@ const createTransaction = async (req, res) => {
             });
         }
 
-        const itemPrice = products.find((item) => item.id === itemID).price;
+        const selectedItem = products.find((item) => item.id === itemID)
+        const sellerPublicKey = new PublicKey(selectedItem.seller_address);
+        const itemPrice = selectedItem.price;
+        if (!sellerPublicKey) {
+            res.status(400).json({
+                message: "Missing seller address",
+            });
+        }
         if (!itemPrice) {
             res.status(404).json({
                 message: "Item not found. please check item ID",

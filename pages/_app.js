@@ -17,7 +17,7 @@ import "../styles/App.css";
 
 const App = ({ Component, pageProps }) => {
 
-  const network = WalletAdapterNetwork.Devnet;
+  const network = WalletAdapterNetwork.Mainnet;
 
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 

@@ -1,11 +1,32 @@
 [
-    {
-        "id": 1,
-        "name": "Nyan Cat Kawaii",
-        "price": "0.09",
-        "description": "Get this kawaii cat for only $0.09!",
-        "image_url": "https://cloudflare-ipfs.com/ipfs/QmTqdqAFYph6h5fMSxovsRojdnE1g9Ct9fGXRgmtwwdNax",
-        "filename": "nyan-cat-kawaii.gif",
-        "hash": "QmTqdqAFYph6h5fMSxovsRojdnE1g9Ct9fGXRgmtwwdNax"
-    }
+  {
+    "id": 1,
+    "name": "Nyan Cat Kawaii",
+    "price": "0.09",
+    "description": "Get this kawaii cat for only $0.09!",
+    "image_url": "https://c.tenor.com/v9sdELSzVw4AAAAd/nyan-cat-kawaii.gif",
+    "filename": "nyan-cat-kawaii.gif",
+    "hash": "QmTqdqAFYph6h5fMSxovsRojdnE1g9Ct9fGXRgmtwwdNax",
+    "seller_address": "HRWTZWM2p6zFELrto1BPP6oGwF25D88tYN1iW4gqtrkp"
+  },
+  {
+    "id": 2,
+    "name": "Nyan cat Sakura",
+    "price": "1",
+    "image_url": "https://c.tenor.com/0jI-YXeywSsAAAAC/nyan-cat-cat.gif",
+    "description": "Get the cutest Nyan cat runing on the Sakura season at 1 USDC",
+    "filename": "nyan-cat-sakura.gif.zip",
+    "hash": "Qmd6boUbDUmniQag459kNgrRT9mt8wV9faWXouU4rv7Mpn",
+    "seller_address": "9jCXaa8NsKAMwtJW1e7ayjeewKVWYgUZbHEf58BNFJE1"
+  },
+  {
+    "id": 3,
+    "name": "Nyan Doge",
+    "price": "0.42",
+    "image_url": "https://c.tenor.com/De68k_VFfZkAAAAd/gif.gif",
+    "description": "Adopt a Doge for 0.42 USDC",
+    "filename": "Nyan doge.gif.zip",
+    "hash": "QmQeB4mwV1fQPzVtx6LmLFQBjYHRngjCzSZxFL62JD5XFt",
+    "seller_address": "9jCXaa8NsKAMwtJW1e7ayjeewKVWYgUZbHEf58BNFJE1"
+  }
 ]
